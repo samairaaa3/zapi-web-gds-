@@ -649,28 +649,42 @@ function startVoice() {
     recognition.start();
 }
 // SPEAK RESPONSE
+let isSpeaking = false;
+
 function stopSpeaking() {
+    isSpeaking = false;
     window.speechSynthesis.pause();
     window.speechSynthesis.cancel();
 }
 
 function speakResponse(text) {
     const synth = window.speechSynthesis;
-    synth.cancel(); // Stop any previous speech
+    synth.cancel();
+    isSpeaking = true;
 
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.rate = 0.9;
-    utterance.pitch = 1;
-    utterance.volume = 1;
+    const chunks = text.split(/\n/).filter(c => c.trim());
 
-    // Pick a calm English voice if available
     const voices = synth.getVoices();
-    const preferred = voices.find(v => 
-        v.name.includes('Samantha') || 
+    const preferred = voices.find(v =>
+        v.name.includes('Samantha') ||
         v.name.includes('Karen') ||
         v.name.includes('Google UK English Female')
     );
-    if (preferred) utterance.voice = preferred;
 
-    synth.speak(utterance);
+    let i = 0;
+    function speakNext() {
+        if (!isSpeaking || i >= chunks.length) return;
+        const utterance = new SpeechSynthesisUtterance(chunks[i]);
+        utterance.rate = 0.78;
+        utterance.pitch = 1;
+        utterance.volume = 1;
+        if (preferred) utterance.voice = preferred;
+        utterance.onend = () => {
+            i++;
+            setTimeout(speakNext, 500);
+        };
+        synth.speak(utterance);
+    }
+
+    speakNext();
 }
