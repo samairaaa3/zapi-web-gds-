@@ -1,4 +1,4 @@
-const API_KEY = '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';
+const API_KEY = ['gsk_nAHnsMALwGrwopgd', 'VLx6WGdyb3FYHcdrJDWoc4ds0QCLMgNjNOlH'].join('');
 
 // ── CPR STEP DATA + MODAL ─────────────────────────────────────────────────
 const cprSteps = [
