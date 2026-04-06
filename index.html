@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZapI — Crisis Response Assistant</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav>
+        <div class="logo">⚡ ZapI</div>
+        <div class="nav-links">
+            <a href="#about" data-i18n="nav-about">About</a>
+            <a href="#chat" data-i18n="nav-help">Get Help</a>
+            <a href="#firstaid" data-i18n="nav-firstaid">First Aid</a>
+            <a href="#risk" data-i18n="nav-risk">Risk Score</a>
+            <a href="#sdgs" data-i18n="nav-sdgs">SDGs</a>
+            <select id="lang-select" onchange="switchLanguage(this.value)" class="lang-select">
+                <option value="en">🌐 English</option>
+                <option value="fr">🇫🇷 Français</option>
+                <option value="pa">🇮🇳 ਪੰਜਾਬੀ</option>
+                <option value="es">🇪🇸 Español</option>
+            </select>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <h1 data-i18n="hero-title">Crisis help.<br>Anywhere.<br>Anytime.</h1>
+        <p data-i18n="hero-desc">ZapI is an AI-powered crisis response assistant. Get life-saving guidance for medical emergencies, natural disasters, and conflict zones — even without internet.</p>
+        <a href="#chat" class="btn" data-i18n="hero-btn">Get Help Now</a>
+    </section>
+
+    <!-- TWO SOLUTIONS -->
+    <section class="solutions" id="about">
+        <h2>Two solutions. One mission.</h2>
+        <div class="cards">
+            <div class="card offline">
+                <div class="icon">📡</div>
+                <h3>ZapI Device</h3>
+                <p>Offline hardware device running on Raspberry Pi. No internet needed. Voice activated. Works in the most remote and dangerous areas.</p>
+                <span class="tag">No WiFi Required</span>
+            </div>
+            <div class="card online">
+                <div class="icon">🌐</div>
+                <h3>ZapI Web</h3>
+                <p>Online companion app. Location-aware, personalized crisis guidance. Get the latest emergency information when you have connectivity.</p>
+                <span class="tag">WiFi Connected</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- CHAT -->
+    <section class="chat-section" id="chat">
+        <h2 data-i18n="chat-title">Tell ZapI your emergency</h2>
+        <p class="chat-subtitle" data-i18n="chat-subtitle">Select your situation and location, then describe what's happening.</p>
+        <div class="chat-container">
+            <div class="chat-controls">
+                <select id="mode">
+                    <option value="first_aid">🩺 First Aid</option>
+                    <option value="disaster">🌊 Disaster</option>
+                    <option value="conflict">⚔️ Conflict Zone</option>
+                </select>
+                <input type="text" id="location" placeholder="Your city/country (optional)">
+            </div>
+            <div class="chat-messages" id="messages">
+                <div class="message zapi">
+                    <strong>ZapI:</strong> I'm ready to help. Select your emergency type and describe your situation.
+                </div>
+            </div>
+            <div class="chat-input">
+                <input type="text" id="userInput" placeholder="Describe your emergency..." />
+                <button onclick="sendMessage()">Send</button>
+                <button onclick="stopSpeaking()" class="voice-btn">🔇</button>
+                <button onclick="startVoice()" id="voiceBtn" class="voice-btn">🎤</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- MAP -->
+    <section class="map-section" id="map-section">
+        <h2>Your Location & Nearest Shelters</h2>
+        <p class="chat-subtitle">ZapI will find the safest evacuation routes near you.</p>
+        <div class="map-controls">
+            <button onclick="getLocation()" class="btn">📍 Find My Location</button>
+            <select id="shelter-type">
+                <option value="hospital">🏥 Hospitals</option>
+                <option value="shelter">🏠 Emergency Shelters</option>
+                <option value="police">👮 Police Stations</option>
+                <option value="fire_station">🚒 Fire Stations</option>
+            </select>
+            <button onclick="findShelters()" class="btn-secondary">Find Nearest</button>
+        </div>
+        <div id="map"></div>
+    </section>
+
+    <!-- EMERGENCY NUMBERS -->
+    <section class="emergency-numbers" id="emergency">
+        <h2>BC Emergency Numbers</h2>
+        <p class="chat-subtitle">Save these numbers before disaster strikes.</p>
+        <div class="numbers-grid">
+            <div class="number-card">
+                <div class="number-icon">🚑</div>
+                <h3>Emergency Services</h3>
+                <a href="tel:911" class="number">911</a>
+                <p>Police, Fire, Ambulance</p>
+            </div>
+            <div class="number-card">
+                <div class="number-icon">🌊</div>
+                <h3>BC Flood Hotline</h3>
+                <a href="tel:18006636456" class="number">1-800-663-6456</a>
+                <p>BC River Forecast Centre</p>
+            </div>
+            <div class="number-card">
+                <div class="number-icon">🔥</div>
+                <h3>BC Wildfire Service</h3>
+                <a href="tel:18006637867" class="number">1-800-663-7867</a>
+                <p>Report wildfires 24/7</p>
+            </div>
+            <div class="number-card">
+                <div class="number-icon">☠️</div>
+                <h3>BC Poison Control</h3>
+                <a href="tel:18006821985" class="number">1-800-682-1985</a>
+                <p>24/7 poison emergency</p>
+            </div>
+            <div class="number-card">
+                <div class="number-icon">🧠</div>
+                <h3>Crisis Line BC</h3>
+                <a href="tel:18006847000" class="number">1-800-784-2433</a>
+                <p>Mental health crisis 24/7</p>
+            </div>
+            <div class="number-card">
+                <div class="number-icon">🏥</div>
+                <h3>HealthLink BC</h3>
+                <a href="tel:811" class="number">811</a>
+                <p>Non-emergency health advice</p>
+            </div>
+            <div class="number-card">
+                <div class="number-icon">⛽</div>
+                <h3>FortisBC Gas Emergency</h3>
+                <a href="tel:18004633765" class="number">1-800-663-9911</a>
+                <p>Gas leaks and emergencies</p>
+            </div>
+            <div class="number-card">
+                <div class="number-icon">⚡</div>
+                <h3>BC Hydro Outages</h3>
+                <a href="tel:18888359555" class="number">1-888-769-3766</a>
+                <p>Power outages and downed lines</p>
+            </div>
+            <div class="number-card">
+                <div class="number-icon">👩</div>
+                <h3>BC Women's Crisis Line</h3>
+                <a href="tel:18008082433" class="number">1-800-808-2433</a>
+                <p>Violence & abuse support 24/7</p>
+            </div>
+            <div class="number-card">
+                <div class="number-icon">🚌</div>
+                <h3>TransLink Transit Police</h3>
+                <a href="tel:18778281122" class="number">1-877-828-1122</a>
+                <p>Safety on BC transit</p>
+            </div>
+            <div class="number-card">
+                <div class="number-icon">💊</div>
+                <h3>BC Overdose Helpline</h3>
+                <a href="tel:18886885887" class="number">1-888-688-5887</a>
+                <p>Drug overdose support 24/7</p>
+            </div>
+            <div class="number-card">
+                <div class="number-icon">🧒</div>
+                <h3>Kids Help Phone</h3>
+                <a href="tel:18006686868" class="number">1-800-668-6868</a>
+                <p>Youth crisis support 24/7</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FIRST AID / CPR GUIDE -->
+    <section class="firstaid-section" id="firstaid">
+        <h2 data-i18n="firstaid-title">Visual First Aid Guide — CPR</h2>
+        <p class="chat-subtitle" data-i18n="firstaid-subtitle">Follow these 8 steps in a cardiac emergency. Call 911 first.</p>
+        <div class="cpr-photo-grid">
+            <div class="cpr-photo-card">
+                <img src="images/cpr1.jpg" alt="Check Safety">
+                <div class="cpr-photo-label">
+                    <span class="cpr-photo-num">1</span>
+                    <span data-i18n="cpr1-title">Check Safety</span>
+                </div>
+            </div>
+            <div class="cpr-photo-card">
+                <img src="images/cpr2.jpg" alt="Check Response">
+                <div class="cpr-photo-label">
+                    <span class="cpr-photo-num">2</span>
+                    <span data-i18n="cpr2-title">Check Response</span>
+                </div>
+            </div>
+            <div class="cpr-photo-card cpr-photo-critical">
+                <img src="images/cpr3.jpg" alt="Call 911">
+                <div class="cpr-photo-label">
+                    <span class="cpr-photo-num cpr-num-red">3</span>
+                    <span data-i18n="cpr3-title">Call 911</span>
+                </div>
+            </div>
+            <div class="cpr-photo-card">
+                <img src="images/cpr4.jpg" alt="Open Airway">
+                <div class="cpr-photo-label">
+                    <span class="cpr-photo-num">4</span>
+                    <span data-i18n="cpr4-title">Open Airway</span>
+                </div>
+            </div>
+            <div class="cpr-photo-card">
+                <img src="images/cpr5.jpg" alt="Check Breathing">
+                <div class="cpr-photo-label">
+                    <span class="cpr-photo-num">5</span>
+                    <span data-i18n="cpr5-title">Check Breathing</span>
+                </div>
+            </div>
+            <div class="cpr-photo-card cpr-photo-critical">
+                <img src="images/cpr6.jpg" alt="30 Compressions">
+                <div class="cpr-photo-label">
+                    <span class="cpr-photo-num cpr-num-red">6</span>
+                    <span data-i18n="cpr6-title">30 Compressions</span>
+                </div>
+            </div>
+            <div class="cpr-photo-card">
+                <img src="images/cpr7.jpg" alt="2 Rescue Breaths">
+                <div class="cpr-photo-label">
+                    <span class="cpr-photo-num">7</span>
+                    <span data-i18n="cpr7-title">2 Rescue Breaths</span>
+                </div>
+            </div>
+            <div class="cpr-photo-card cpr-photo-critical">
+                <img src="images/cpr8.jpg" alt="Repeat 30:2">
+                <div class="cpr-photo-label">
+                    <span class="cpr-photo-num cpr-num-red">8</span>
+                    <span data-i18n="cpr8-title">Repeat 30:2</span>
+                </div>
+            </div>
+        </div>
+        <div class="cpr-note">
+            <strong data-i18n="cpr-note-label">Hands-only CPR:</strong>
+            <span data-i18n="cpr-note-desc"> Not trained in rescue breaths? Skip step 7. Compressions alone still save lives.</span>
+        </div>
+    </section>
+
+    <!-- DISASTER RISK SCORE -->
+    <section class="risk-section" id="risk">
+        <h2 data-i18n="risk-title">BC Disaster Risk Score</h2>
+        <p class="chat-subtitle" data-i18n="risk-subtitle">Select your BC region to see your local disaster risk levels.</p>
+        <div class="risk-controls">
+            <select id="risk-region" onchange="showRiskScore()">
+                <option value="" data-i18n="risk-placeholder">-- Select Your Region --</option>
+                <option value="metro-van">Metro Vancouver</option>
+                <option value="fraser-valley">Fraser Valley</option>
+                <option value="kelowna">Kelowna / Okanagan</option>
+                <option value="kamloops">Kamloops</option>
+                <option value="prince-george">Prince George</option>
+                <option value="victoria">Victoria / Vancouver Island</option>
+                <option value="fort-st-john">Fort St. John / Peace Region</option>
+            </select>
+        </div>
+        <div id="risk-display" class="risk-display">
+            <div class="risk-placeholder-msg">Select a region above to see your risk levels</div>
+        </div>
+    </section>
+
+    <!-- SDGS -->
+    <section class="sdgs" id="sdgs">
+        <h2>UN Sustainable Development Goals</h2>
+        <div class="sdg-cards">
+            <div class="sdg-card">
+                <div class="sdg-num">3</div>
+                <h4>Good Health & Well-being</h4>
+                <p>Providing emergency medical guidance to anyone, anywhere.</p>
+            </div>
+            <div class="sdg-card">
+                <div class="sdg-num">11</div>
+                <h4>Sustainable Cities</h4>
+                <p>Helping communities prepare for and survive disasters.</p>
+            </div>
+            <div class="sdg-card">
+                <div class="sdg-num">16</div>
+                <h4>Peace & Justice</h4>
+                <p>Protecting civilians in conflict zones with real-time guidance.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>⚡ ZapI — Built for GDSC Hackathon | Saving lives with AI</p>
+    </footer>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAhn-sFXQFQLa_DT_grFyM_ys2vxw3qwhs&libraries=places"></script>
+    <script src="app.js"></script>
+</body>
+</html>
