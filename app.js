@@ -650,6 +650,7 @@ function startVoice() {
 }
 // SPEAK RESPONSE
 function stopSpeaking() {
+    window.speechSynthesis.pause();
     window.speechSynthesis.cancel();
 }
 
