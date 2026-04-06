@@ -649,6 +649,10 @@ function startVoice() {
     recognition.start();
 }
 // SPEAK RESPONSE
+function stopSpeaking() {
+    window.speechSynthesis.cancel();
+}
+
 function speakResponse(text) {
     const synth = window.speechSynthesis;
     synth.cancel(); // Stop any previous speech
