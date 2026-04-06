@@ -14,7 +14,7 @@
         <div class="nav-links">
             <a href="#about" data-i18n="nav-about">About</a>
             <a href="#chat" data-i18n="nav-help">Get Help</a>
-            <a href="#firstaid" data-i18n="nav-firstaid">First Aid</a>
+            <a href="#firstaid" data-i18n="nav-firstaid">Visual CPR Steps</a>
             <a href="#risk" data-i18n="nav-risk">Risk Score</a>
             <a href="#sdgs" data-i18n="nav-sdgs">SDGs</a>
             <select id="lang-select" onchange="switchLanguage(this.value)" class="lang-select">
@@ -93,7 +93,13 @@
             </select>
             <button onclick="findShelters()" class="btn-secondary">Find Nearest</button>
         </div>
-        <div id="map"></div>
+        <div id="map">
+            <div id="map-placeholder">
+                <div class="map-placeholder-icon">📍</div>
+                <div class="map-placeholder-title">Your map will appear here</div>
+                <div class="map-placeholder-desc">Click <strong>Find My Location</strong>, then select a shelter type and click <strong>Find Nearest</strong></div>
+            </div>
+        </div>
     </section>
 
     <!-- EMERGENCY NUMBERS -->
@@ -178,7 +184,7 @@
 
     <!-- FIRST AID / CPR GUIDE -->
     <section class="firstaid-section" id="firstaid">
-        <h2 data-i18n="firstaid-title">Visual First Aid Guide — CPR</h2>
+        <h2 data-i18n="firstaid-title">Visual CPR Steps</h2>
         <p class="chat-subtitle" data-i18n="firstaid-subtitle">Follow these 8 steps in a cardiac emergency. Call 911 first.</p>
         <div class="cpr-photo-grid">
             <div class="cpr-photo-card">

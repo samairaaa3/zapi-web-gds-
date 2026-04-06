@@ -106,7 +106,7 @@ document.addEventListener('keydown', e => {
 // ── MULTILINGUAL TRANSLATIONS ──────────────────────────────────────────────
 const translations = {
     en: {
-        'nav-about': 'About', 'nav-risk': 'Risk Score', 'nav-firstaid': 'First Aid',
+        'nav-about': 'About', 'nav-risk': 'Risk Score', 'nav-firstaid': 'Visual CPR Steps',
         'nav-help': 'Get Help', 'nav-sdgs': 'SDGs',
         'hero-title': 'Crisis help.<br>Anywhere.<br>Anytime.',
         'hero-desc': 'ZapI is an AI-powered crisis response assistant. Get life-saving guidance for medical emergencies, natural disasters, and conflict zones — even without internet.',
@@ -114,7 +114,7 @@ const translations = {
         'risk-title': 'BC Disaster Risk Score',
         'risk-subtitle': 'Select your BC region to see your local disaster risk levels.',
         'risk-placeholder': '-- Select Your Region --',
-        'firstaid-title': 'Visual First Aid Guide',
+        'firstaid-title': 'Visual CPR Steps',
         'firstaid-subtitle': 'Follow these steps in a cardiac emergency. Call 911 first.',
         'chat-title': 'Tell ZapI your emergency',
         'chat-subtitle': 'Select your situation and location, then describe what\'s happening.',
@@ -506,6 +506,8 @@ function getLocation() {
 }
 
 function initMap(center) {
+    const placeholder = document.getElementById('map-placeholder');
+    if (placeholder) placeholder.style.display = 'none';
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 13,
         center: center,
