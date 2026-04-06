@@ -748,31 +748,96 @@ footer {
 
 /* RESPONSIVE */
 @media (max-width: 768px) {
-    .cpr-photo-grid {
-        grid-template-columns: 1fr 1fr;
-    }
-    .risk-cards {
-        grid-template-columns: 1fr;
-    }
-    .numbers-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
+
+    /* NAVBAR */
     nav {
-        padding: 16px 20px;
+        padding: 14px 16px;
         flex-wrap: wrap;
-        gap: 12px;
+        gap: 10px;
     }
     .nav-links {
         flex-wrap: wrap;
-        gap: 8px;
+        gap: 6px;
+        font-size: 0.82rem;
     }
+    .nav-links a {
+        margin-left: 0;
+    }
+    .lang-select {
+        margin-left: 0;
+        font-size: 0.82rem;
+        padding: 6px 10px;
+    }
+
+    /* HERO */
     .hero {
-        padding: 60px 20px;
+        padding: 50px 20px;
     }
     .hero h1 {
-        font-size: 2.8rem;
+        font-size: 2.2rem;
     }
-    .risk-section, .firstaid-section {
-        padding: 60px 20px;
+    .hero p {
+        font-size: 1rem;
+    }
+
+    /* SECTIONS */
+    .solutions,
+    .chat-section,
+    .map-section,
+    .emergency-numbers,
+    .firstaid-section,
+    .risk-section,
+    .sdgs {
+        padding: 50px 16px;
+    }
+
+    /* CARDS GRID */
+    .cards {
+        grid-template-columns: 1fr;
+    }
+
+    /* NUMBERS */
+    .numbers-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    /* CPR PHOTO GRID */
+    .cpr-photo-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    .cpr-photo-card img {
+        height: 130px;
+    }
+
+    /* RISK */
+    .risk-cards {
+        grid-template-columns: 1fr;
+    }
+
+    /* SDG */
+    .sdg-cards {
+        grid-template-columns: 1fr;
+    }
+
+    /* CHAT */
+    .chat-controls {
+        flex-direction: column;
+    }
+    .chat-input {
+        flex-wrap: wrap;
+    }
+    .chat-input input {
+        width: 100%;
+    }
+
+    /* MAP */
+    .map-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    #map {
+        height: 300px;
     }
 }
