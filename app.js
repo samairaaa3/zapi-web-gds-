@@ -398,6 +398,8 @@ async function translateMsg(msgId) {
     }
 }
 
+let voiceTriggered = false;
+
 async function sendMessage() {
     const input = document.getElementById('userInput');
     const mode = document.getElementById('mode').value;
@@ -461,7 +463,8 @@ async function sendMessage() {
                 </div>
             </div>
         `;
-        speakResponse(reply);
+        if (voiceTriggered) speakResponse(reply);
+        voiceTriggered = false;
 
         messages.scrollTop = messages.scrollHeight;
 
@@ -627,6 +630,7 @@ function startVoice() {
         input.value = transcript;
         btn.classList.remove('listening');
         btn.textContent = '🎤';
+        voiceTriggered = true;
         sendMessage();
     };
 
